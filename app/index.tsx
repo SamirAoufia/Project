@@ -40,7 +40,7 @@ export default function Login() {
             </SafeAreaView>
             <Button
                 onPress={() => connexion()}
-                title="Log in"
+                title="Login"
                 color="#007BFF"
             />
         </View>
@@ -74,9 +74,6 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       paddingHorizontal: 10,
       backgroundColor: '#fff',
-      shadowColor: '#000',
-      shadowOpacity: 0.1,
-      shadowRadius: 5,
-      shadowOffset: { width: 0, height: 3 },
+      boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.1)',
   }
 });

@@ -32,10 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 15,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    shadowOffset: { width: 0, height: 3 },
+    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.1)',
     marginBottom: 20,
   },
   historyText: {
