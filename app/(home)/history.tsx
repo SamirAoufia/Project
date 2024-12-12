@@ -1,14 +1,57 @@
-import { Button, Text, View, StyleSheet, ScrollView } from "react-native";
+import { Button, Text, View, StyleSheet, ScrollView, Platform } from "react-native";
+import React, { useEffect, useState, useCallback} from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function History() {
+
+
+
+export default  function History() {
+  const [historyData, setHistoryData] = useState([]);
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('value');
+      setHistoryData(jsonValue != null ? JSON.parse(jsonValue) : []);
+    } catch(e) {
+      console.error("Failed to fetch the data from storage", e);
+    }
+  }
+
+  const clearHistory = async () => {
+    try {
+      await AsyncStorage.removeItem('value');
+    } catch(e) {
+      console.error("Failed to clear the data from storage", e);
+    }
+  }
+  
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+  
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>History Page</Text>
       <View style={styles.historyContainer}>
-        <Text style={styles.historyText}>Historique .....</Text>
+      {historyData.length > 0 ? (
+          historyData.map((item, index) => (
+            <View key={index} style={styles.historyItem}>
+              <Text style={styles.historyText}>
+                <Text style={styles.bold}>Value:</Text> {item.value}
+              </Text>
+              <Text style={styles.historyText}>
+                <Text style={styles.bold}>Time:</Text> {item.time}
+              </Text>
+            </View>
+          ))
+        ) : (
+          <Text style={styles.noHistoryText}>No history available</Text>
+        )}
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Clear History" color="#FF4D4D" />
+        <Button title="Clear History" color="#FF4D4D" onPress={clearHistory} />
       </View>
     </ScrollView>
   );
@@ -42,5 +85,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     marginTop: 10,
-  }
+  },
+  bold: {
+    fontWeight: '700',
+  },
+  noHistoryText: {
+    fontSize: 16,
+    color: '#888',
+    textAlign: 'center',
+  },
+  historyItem: {
+    marginBottom: 15,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
 });
+
