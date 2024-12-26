@@ -18,6 +18,7 @@ export default function Login() {
             alert("Wrong credentials")
         }
     }
+    
   return (
     <View style={styles.container}>
             <Text style={styles.title}>Login Page</Text>

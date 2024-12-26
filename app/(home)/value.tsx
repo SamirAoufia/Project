@@ -13,11 +13,11 @@ import React from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const optionMQTT = {
-  host: "**********************",
-  port: "*****",
+  host: "gx-cloud49.segi.ulg.ac.be",
+  port: 8080,
   clientId: "Application Mobile",
-  user: "**********",
-  password: "*************",
+  user: "lsg",
+  password: "main01",
 };
 
 const client = new Paho.Client(
@@ -91,13 +91,14 @@ export default function Value() {
     setIsLampEnabled(false);
     setIsAutomaticEnabled(false);
   };
-
+  
   function Subscribetovalue() {
     client.subscribe("value");
     client.onMessageArrived = (message) => {
       setValue(message.payloadString);
     };
   }
+  
 
   function PublishToSetPoint() {
     if (client.isConnected()) {
@@ -154,7 +155,7 @@ export default function Value() {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Value Page</Text>
+        <Text style={styles.title}>Page Value </Text>
 
         {connexion ? (
           <>

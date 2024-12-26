@@ -6,7 +6,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default  function History() {
-  const [historyData, setHistoryData] = useState([]);
+  interface HistoryItem {
+    value: string;
+    time: string;
+  }
+
+  const [historyData, setHistoryData] = useState<HistoryItem[]>([]);
 
   const getData = async () => {
     try {
